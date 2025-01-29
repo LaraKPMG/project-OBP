@@ -274,7 +274,7 @@ def solve_scheduling_problem(df, machine_columns):
 
 
 
-def generate_test_case(num_jobs, num_machines.ratio):
+def generate_test_case(num_jobs, num_machines,ratio):
     """
     Generate a synthetic test case with the specified number of jobs and machines.
     """
@@ -462,7 +462,7 @@ if option == "Extended solver OR Tools":
     max_machines = st.number_input("Maximum number of machines", min_value=1, step=1)
     time_limit = st.number_input("Search time limit (seconds)", min_value=1, step=1)
     batch = st.number_input("Batch size of trial runs per instance", min_value=1, step=1)
-    ratio = st.number_input("Ratio of difficulty per instance", min_value=0, step=0.1)
+    ratio = st.number_input("Ratio of difficulty per instance", min_value=0.0, step=0.1)
 
     # Run solver only when button is clicked
     if st.button("Run Solver Performance Tests"):
@@ -508,7 +508,7 @@ elif option == "Extended solver Gurobi":
     max_machines = st.number_input("Maximum number of machines", min_value=1, step=1)
     time_limit = st.number_input("Search time limit (seconds)", min_value=1, step=1)
     batch = st.number_input("Batch size of trial runs per instance", min_value=1, step=1)
-    ratio = st.number_input("Ratio of difficulty per instance", min_value=0, step=0.1)
+    ratio = st.number_input("Ratio of difficulty per instance", min_value=0.0, step=0.1)
 
     # Run solver only when button is clicked
     if st.button("Run Solver Performance Tests"):
