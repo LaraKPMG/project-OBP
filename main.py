@@ -289,9 +289,9 @@ def generate_test_case(num_jobs, num_machines,ratio):
     average_service =(min_time_service+max_time_service)/2
     data = {
         "TaskID": list(range(1, num_jobs + 1)),
-        "ReleaseDate": np.random.randint(0,end_release, size=num_jobs),  # 0,11
-        "DueDate": np.random.randint(begin_due,end_due, size=num_jobs), #55,110
-        "Weight": np.random.randint(1, 3, size=num_jobs),       # Random weights
+        "ReleaseDate": np.random.randint(0,end_release, size=num_jobs),  
+        "DueDate": np.random.randint(begin_due,end_due, size=num_jobs),
+        "Weight": np.random.randint(1, 3, size=num_jobs),       
     }
     for i in range(1, num_machines + 1):
         data[f"Machine {i}"] = np.random.randint(min_time_service, max_time_service, size=num_jobs)  # Random processing times
@@ -317,7 +317,7 @@ def evaluate_solver(min_jobs,max_jobs,min_machines,max_machines,time_limit,batch
             Time_capped = False
             outtime = 0
             for i in range(batch):#uneven number so the ratio will always tip to one side
-                #st.write(f"trial {i+1}")
+                st.write(f"trial {i+1}")
                 machine_columns = [f"Machine {i}" for i in range(1, num_machines + 1)]
                 start_time = time.time()
                 if Solver:
@@ -328,11 +328,11 @@ def evaluate_solver(min_jobs,max_jobs,min_machines,max_machines,time_limit,batch
                 solving_time =  end_time - start_time
                 if solving_time >= time_limit:
                     solving_set.append((result,False,solving_time))
-                    #st.write(f"Not in time")
+                    st.write(f"Not in time")
                     outtime+=1
                 else:
                     solving_set.append((result,True,solving_time))
-                    #st.write(f"Within time")
+                    st.write(f"Within time")
                 if outtime>=batch/2:
                     break
             solving_set.sort(key=lambda x: not x[1])
@@ -557,12 +557,12 @@ elif option =="Ratio comparison":
     if st.button("Run Ratio Tests"):
         with st.spinner("Running tests..."):
             ratio_results=[]
-            for ratio in range(0,1,0.1):
+            for ratio in range(1,11):
                 or_performance_results, or_largest_set = evaluate_solver(
-                    int(min_num_jobs),int(max_num_jobs), int(min_machines),int(max_machines), int(time_limit), int(batch),True,ratio
+                    int(min_num_jobs),int(max_num_jobs), int(min_machines),int(max_machines), int(time_limit), int(batch),True,ratio/100
                 )
                 gur_performance_results, gur_largest_set = evaluate_solver(
-                    int(min_num_jobs),int(max_num_jobs), int(min_machines),int(max_machines), int(time_limit), int(batch),False,ratio
+                    int(min_num_jobs),int(max_num_jobs), int(min_machines),int(max_machines), int(time_limit), int(batch),False,ratio/100
                 )
                 ratio_results.append({"OR status":or_performance_results["SolverStatus"],
                                      "Gurobi status":gur_performance_results["SolverStatus"],
