@@ -318,7 +318,6 @@ def evaluate_solver(min_jobs,max_jobs,min_machines,max_machines,time_limit,batch
             outtime = 0
             for i in range(batch):#uneven number so the ratio will always tip to one side
                 st.write(f"trial {i+1}")
-                st.write(f"trial {i+1}")
                 machine_columns = [f"Machine {i}" for i in range(1, num_machines + 1)]
                 start_time = time.time()
                 if Solver:
